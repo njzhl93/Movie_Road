@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141111105912) do
+ActiveRecord::Schema.define(version: 20141115144050) do
 
   create_table "comments", force: true do |t|
     t.string   "content"
@@ -24,6 +24,19 @@ ActiveRecord::Schema.define(version: 20141111105912) do
   create_table "microposts", force: true do |t|
     t.string   "content"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "movies", force: true do |t|
+    t.string   "imdb"
+    t.string   "name"
+    t.string   "director"
+    t.string   "actors"
+    t.string   "genre"
+    t.integer  "duration"
+    t.string   "date"
+    t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
