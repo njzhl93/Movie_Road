@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Poster:</strong>
+  <%= image_tag @movie.image.url %>
+</p>
+
+<p>
+  <strong>Imdb:</strong>
+  <%= @movie.imdb %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @movie.name %>
+</p>
+
+<p>
+  <strong>Director:</strong>
+  <%= @movie.director %>
+</p>
+
+<p>
+  <strong>Actors:</strong>
+  <%= @movie.actors %>
+</p>
+
+<p>
+  <strong>Genre:</strong>
+  <%= @movie.genre %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @movie.duration %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @movie.date %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @movie.content %>
+</p>
+
+<h2>Comments</h2>
+ <div id="comments">
+         <%= render :partial => @movie.comments %>
+ </div>
+
+
+<%= form_for [@movie, Comment.new] do |f| %>
+        <p>
+                <%= f.label :body, "New comment" %><br/>
+                <%= f.text_area :body %>
+        </p>
+        <p><%= f.submit "Add comment" %></p>
+<% end %>
+<%= link_to 'Edit', edit_movie_path(@movie) %> |
+<%= link_to 'Back', movies_path %>

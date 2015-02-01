@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
+  has_many :messages
   has_many :comments
   has_many :commented_posts, :class_name => "Micropost" ,
                :through => :comments, :source => :micropost
@@ -29,7 +30,7 @@ class User < ActiveRecord::Base
   	  Digest::SHA1.hexdigest(token.to_s)
   end
   def feed
-    Micropost.from_users_followed_by(self)
+    Comment.from_users_followed_by(self)
   end
 
   def following?(other_user)
