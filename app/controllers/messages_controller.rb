@@ -38,14 +38,14 @@ class MessagesController < ApplicationController
 
   def reply
     @message_to_reply = Message.find(params[:id])
-    @message = current_user.messages.build(to: @message_to_reply.from)
+    @message = current_user.messages.build(receive_id: @message_to_reply.user_id)
     render 'new'
   end
 
   private
 
     def message_params
-      params.require(:message).permit(:to, :content)
+      params.require(:message).permit(:receive_id, :content)
     end
 
     def set_message
@@ -53,7 +53,7 @@ class MessagesController < ApplicationController
     end
 
     def correct_user
-      redirect_to root_url unless (current_user.id == @message.from) || (current_user.id == @message.to)
+      redirect_to root_url unless (current_user.id == @message.user_id) || (current_user.id == @message.receive_id)
     end
 
     def set_message_counts
