@@ -6,10 +6,14 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    resources :messages
     member do
       get :following, :followers
     end 
+  end
+
+  resources :messages, only: [:new, :create, :index, :show, :destroy] do
+    get 'reply', on: :member
+    get 'sent', on: :collection
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]

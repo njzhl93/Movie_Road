@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+  has_many :messages, foreign_key: 'user_id'
+  has_many :received_messages, foreign_key: 'receive_id', class_name: 'Message'
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64

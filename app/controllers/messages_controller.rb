@@ -1,30 +1,63 @@
 class MessagesController < ApplicationController
-  before_filter :find_receive_id
+
+  before_action :signed_in_user
+  before_action :set_message, only: [:show, :destroy]
+  before_action :correct_user, only: [:show, :destroy]
+  before_action :set_message_counts
+
   def index
-    @message = Message.where(:receive_id => current_user.id).order("id DESC")   
+    @messages = current_user.received_messages
   end
-  
+
+  def show
+  end
+
   def new
     @message = Message.new
   end
-  
+
   def create
-    @message = Message.create(:user_id => current_user.id, 
-      :content => params[:message][:content], 
-      :receive_id => @user.id)
-    redirect_to messages_path
-  end
-  
-  def show
-    @message = Message.find(params[:message])
+    @message = current_user.messages.build(message_params)
+
+    if @message.save
+      redirect_to root_url, flash: { success: 'Message sent' }
+    else
+      render 'new'
+    end
   end
 
-  protected
-  def message_params
-    params.require(:message).permit(:user_id, :content, :receive_id)
+  def destroy
+    if @message.destroy
+      redirect_to messages_url, flash: { success: 'Message deleted' }
+    end
   end
 
-  def find_receive_id
-    @user = User.find(params[:user_id])
+  def sent
+    @messages = current_user.messages
   end
+
+  def reply
+    @message_to_reply = Message.find(params[:id])
+    @message = current_user.messages.build(to: @message_to_reply.from)
+    render 'new'
+  end
+
+  private
+
+    def message_params
+      params.require(:message).permit(:to, :content)
+    end
+
+    def set_message
+      @message = Message.find(params[:id])
+    end
+
+    def correct_user
+      redirect_to root_url unless (current_user.id == @message.from) || (current_user.id == @message.to)
+    end
+
+    def set_message_counts
+      @inbox_count ||= current_user.received_messages.size
+    end
+
 end
