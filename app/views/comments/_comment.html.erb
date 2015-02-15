@@ -22,4 +22,17 @@
                                          title: comment.body %>
       <% end %>
         </p>
+
+         <div id="reply">
+             
+         </div>
+ <%= form_for [comment.movie ,Reply.new] do |f| %>
+           
+        <p>
+                <%= f.label :body, "New reply" %><br/>
+                <%= f.text_area :body %>
+        </p>
+        <p><%= f.submit "Add reply" %></p>
+        <% end %>  
+       
 <% end %>

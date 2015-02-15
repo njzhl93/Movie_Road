@@ -1,0 +1,21 @@
+<%= div_for reply do %>
+        <p>
+        	<strong>
+        	    <span class="user">
+        	    	<%= link_to reply.user.name, reply.user %>
+        	    </span>
+        	</strong>
+                
+                        Posted <%= time_ago_in_words(reply.created_at) %> ago
+                
+                <br/>
+
+                <%= reply.body %>
+                <br/>
+                <% if current_user?(reply.user) %>
+                <%= link_to "delete", [reply.comment, reply], method: :delete,
+                                         data: { confirm: "You sure?" },
+                                         title: reply.body %>
+      <% end %>
+        </p>
+<% end %>

@@ -2,8 +2,12 @@ Rails.application.routes.draw do
 
 
   resources :movies do
-    resources :comments
+    resources :comments do
+      resources :replies
+    end
+ 
   end
+
 
   resources :users do
     member do

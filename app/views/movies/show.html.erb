@@ -5,6 +5,7 @@
   <%= image_tag @movie.image.url %>
 </p>
 
+
 <p>
   <strong>Imdb:</strong>
   <%= @movie.imdb %>
@@ -52,6 +53,7 @@
 
 
 <%= form_for [@movie, Comment.new] do |f| %>
+           
         <p>
                 <%= f.label :body, "New comment" %><br/>
                 <%= f.text_area :body %>
