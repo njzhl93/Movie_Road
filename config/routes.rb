@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
 
 
-  resources :movies do
+  resources :movies, shallow:true do
     resources :comments do
       resources :replies
     end
  
   end
+
+  resources :ratings, only: :update
 
 
   resources :users do

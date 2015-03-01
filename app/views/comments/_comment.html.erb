@@ -17,16 +17,17 @@
                 <%= comment.body %>
                 <br/>
                 <% if current_user?(comment.user) %>
-                <%= link_to "delete", [comment.movie, comment], method: :delete,
+                <%= link_to "delete", comment, method: :delete,
                                          data: { confirm: "You sure?" },
                                          title: comment.body %>
       <% end %>
         </p>
 
          <div id="reply">
-             
+            <%= render :partial => comment.replies %>
+
          </div>
- <%= form_for [comment.movie ,Reply.new] do |f| %>
+     <%= form_for [comment, Reply.new] do |f| %>
            
         <p>
                 <%= f.label :body, "New reply" %><br/>

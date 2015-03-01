@@ -2,11 +2,16 @@ class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
   def index
-    @movies = Movie.all
+
+    if params[:search]
+      @movies = Movie.search(params[:search]).order(:name)
+    else
+      @movies = Movie.order(:name)
+    end    
+
   end
 
   def show
-    puts "aaa"
   end
 
   def new
@@ -17,8 +22,8 @@ class MoviesController < ApplicationController
   end
 
   def create
-    # @movie = Movie.new(movie_params)
-    @movie = Movie.create(:image => params[:movie][:image])
+   # @movie = Movie.new(movie_params)
+    @movie = Movie.create(movie_params)
     respond_to do |format|
       if @movie.save
         format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
@@ -59,6 +64,6 @@ class MoviesController < ApplicationController
     end
 
     def movie_params
-      params.require(:movie).permit(:imdb, :name, :director, :actors, :genre, :duration, :date, :content)
+      params.require(:movie).permit(:imdb, :name, :director, :actors, :genre, :duration, :date, :content, :image)
     end
 end

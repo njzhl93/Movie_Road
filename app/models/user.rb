@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
+  has_many :ratings
   has_many :messages
   has_many :comments
   has_many :commented_posts, :class_name => "Micropost" ,

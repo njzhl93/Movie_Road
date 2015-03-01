@@ -2,9 +2,9 @@ class RepliesController < ApplicationController
 	before_filter :signed_in_user, only: [:create, :destroy]
 	def create
                 @comment = Comment.find(params[:comment_id])
-                @movie = Movie.find(params[:movie_id])
                 @reply = @comment.replies.build(reply_params)
                 @reply.comment = @comment
+                @movie = @comment.movie
                 @reply.user = current_user
                 @reply.save
                 redirect_to @movie

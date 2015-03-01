@@ -1,5 +1,12 @@
 <h1>Listing movies</h1>
 
+     <%= form_tag(@movie, :method => "get") do %>
+        <p> 
+         <%= text_field_tag :search, params[:search] %>
+         <%= submit_tag "Search", :name => nil %>
+        </p> 
+      <% end %>
+
 <table border=1>
   <thead>
     <tr>

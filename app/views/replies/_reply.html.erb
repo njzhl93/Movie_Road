@@ -13,7 +13,7 @@
                 <%= reply.body %>
                 <br/>
                 <% if current_user?(reply.user) %>
-                <%= link_to "delete", [reply.comment, reply], method: :delete,
+                <%= link_to "delete", reply, method: :delete,
                                          data: { confirm: "You sure?" },
                                          title: reply.body %>
       <% end %>
