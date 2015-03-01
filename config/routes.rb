@@ -8,7 +8,7 @@ Rails.application.routes.draw do
  
   end
 
-  resources :ratings, only: :update
+  # resources :ratings, only: :update
 
 
   resources :users do
