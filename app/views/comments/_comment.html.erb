@@ -23,10 +23,11 @@
       <% end %>
         </p>
 
+    <a href="#" id='show'>Reply</a>
          <div id="reply">
             <%= render :partial => comment.replies %>
 
-         </div>
+         
      <%= form_for [comment, Reply.new] do |f| %>
            
         <p>
@@ -35,5 +36,6 @@
         </p>
         <p><%= f.submit "Add reply" %></p>
         <% end %>  
+        </div>
        
 <% end %>

@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   belongs_to :movie
   belongs_to :user
-  has_many :replies
+  has_many :replies,dependent: :destroy
   default_scope {order('comments.created_at DESC')}
         def self.from_users_followed_by(user)
           followed_user_ids = "SELECT followed_id FROM relationships

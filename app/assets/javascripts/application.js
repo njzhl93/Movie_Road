@@ -16,3 +16,4 @@
 //= require turbolinks
 //= require_tree .
 //= require raty.min.js
+//= require hide.js
