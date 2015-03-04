@@ -11,4 +11,8 @@ class Movie < ActiveRecord::Base
   def self.search(search)
     where("name like ?", "%#{search}%")
   end   
+
+def average_rating
+  ratings.sum(:score) / (ratings.size.nonzero? || 1)
+end
 end

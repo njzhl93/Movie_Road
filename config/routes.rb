@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   # resources :ratings, only: :update
 
-
+resources :ratings , only: :update
   resources :users do
     member do
       get :following, :followers
