@@ -12,6 +12,10 @@ class MoviesController < ApplicationController
   end
 
   def show
+    @rating = Rating.where(movie_id: @movie.id, user_id: current_user.id).first
+  unless @rating
+    @rating = Rating.create(movie_id: @movie.id, user_id: current_user.id, score: 0)
+  end
   end
 
   def new
