@@ -5,9 +5,8 @@ Rails.application.routes.draw do
     resources :comments do
       resources :replies
     end
- 
   end
-
+  resources :searches
   # resources :ratings, only: :update
 
 resources :ratings , only: :update

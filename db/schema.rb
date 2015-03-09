@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224202639) do
+ActiveRecord::Schema.define(version: 20150309205749) do
 
   create_table "comments", force: true do |t|
     t.integer  "movie_id"
@@ -91,6 +91,15 @@ ActiveRecord::Schema.define(version: 20150224202639) do
   end
 
   add_index "replies", ["comment_id"], name: "index_replies_on_comment_id"
+
+  create_table "searches", force: true do |t|
+    t.string   "imdb"
+    t.string   "name"
+    t.string   "director"
+    t.string   "actors"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

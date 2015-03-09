@@ -1,0 +1,21 @@
+<h1>Advanced Search</h1>
+
+<%= form_for @search do |f| %>
+  <p>
+    <%= f.label :IMDB %><br />
+    <%= f.text_field :imdb %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :director %><br />
+    <%= f.text_field :director %>
+  </p>
+  <p>
+    <%= f.label :actors %><br />
+    <%= f.text_field :actors %>
+  </p>
+  <p><%= f.submit "Search" %></p>
+<% end %>
