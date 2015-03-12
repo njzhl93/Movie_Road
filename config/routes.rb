@@ -3,13 +3,13 @@ Rails.application.routes.draw do
 
   resources :movies, shallow:true do
     resources :comments do
+      member { post :vote }
       resources :replies
     end
   end
   resources :searches
-  # resources :ratings, only: :update
 
-resources :ratings , only: :update
+  resources :ratings , only: :update
   resources :users do
     member do
       get :following, :followers

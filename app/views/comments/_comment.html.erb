@@ -7,6 +7,14 @@
         	</strong>
                 
                         Posted <%= time_ago_in_words(comment.created_at) %> ago
+                        <strong>
+                        <% if signed_in? %>
+                          <%= link_to "up", vote_comment_path(comment, type: "up"), method: "post" %>
+                          <%= link_to "down", vote_comment_path(comment, type: "down"), method: "post" %>
+                        <% end %>
+                          <%= pluralize comment.reputation_for(:votes).to_i, "vote" %>
+                          
+                        </strong>
                 
                 <br/>
             <strong>

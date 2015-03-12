@@ -19,6 +19,13 @@ class CommentsController < ApplicationController
         redirect_to @movie
     end
 
+    def vote
+        value = params[:type] == "up" ? 1 : -1
+        @comment = Comment.find(params[:id])
+        @comment.add_or_update_evaluation(:votes, value, current_user)
+        redirect_to :back, notice: "Thank you for voting"
+    end
+    
     private
         # Never trust parameters from the scary internet, only allow the white list through.
         def comment_params
