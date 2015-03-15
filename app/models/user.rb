@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :favorites
+  has_many :favorite_movies, through: :favorites, source: :favorited, source_type: 'Movie'
   has_many :microposts, dependent: :destroy
   has_many :ratings
   has_many :messages

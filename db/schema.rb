@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312201333) do
+ActiveRecord::Schema.define(version: 20150315201846) do
 
   create_table "comments", force: true do |t|
     t.integer  "movie_id"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 20150312201333) do
 
   add_index "comments", ["movie_id"], name: "index_comments_on_movie_id"
   add_index "comments", ["user_id", "in_reply_to"], name: "index_comments_on_user_id_and_in_reply_to"
+
+  create_table "favorites", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "favorited_id"
+    t.string   "favorited_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "favorites", ["favorited_id", "favorited_type"], name: "index_favorites_on_favorited_id_and_favorited_type"
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id"
 
   create_table "messages", force: true do |t|
     t.integer  "user_id"

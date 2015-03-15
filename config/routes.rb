@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     end 
   end
 
+  resources :favorite_movies, only: [:create, :destroy]
+
   resources :messages, only: [:new, :create, :index, :show, :destroy] do
     get 'reply', on: :member
     get 'sent', on: :collection
