@@ -8,6 +8,8 @@ class FavoriteMoviesController < ApplicationController
       redirect_to @movie, alert: 'Something went wrong'
     end
   end
+
+
   
   def destroy
     Favorite.where(favorited_id: @movie.id, user_id: current_user.id).first.destroy
