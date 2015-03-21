@@ -48,6 +48,10 @@ group :production do
   gem 'pg', '0.15.1'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
+
 gem 'activerecord-reputation-system', require: 'reputation_system'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

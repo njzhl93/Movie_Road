@@ -1,5 +1,5 @@
-class FavoriteMoviesController < ApplicationController
-  before_action :set_movie
+class FavoritesController < ApplicationController
+  before_action :set_movie, only: [:create, :destroy]
   
   def create
     if Favorite.create(favorited: @movie, user: current_user)
@@ -10,6 +10,9 @@ class FavoriteMoviesController < ApplicationController
   end
 
 
+ def index
+    @favorite_movies = current_user.favorite.paginate(page: params[:page])
+ end
   
   def destroy
     Favorite.where(favorited_id: @movie.id, user_id: current_user.id).first.destroy

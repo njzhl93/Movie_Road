@@ -13,7 +13,7 @@
   </thead>
 
   <tbody>
-    <% @movies.each do |movie| %>
+    <% @favorite_movies.each do |movie| %>
       <tr>
         <td><%= image_tag movie.image.url %></td>
         <td><%= movie.imdb %></td>

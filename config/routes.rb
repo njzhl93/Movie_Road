@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end 
   end
 
-  resources :favorite_movies, only: [:create, :destroy]
+  resources :favorites, only: [:create, :index, :destroy]
 
   resources :messages, only: [:new, :create, :index, :show, :destroy] do
     get 'reply', on: :member
@@ -32,8 +32,7 @@ Rails.application.routes.draw do
   match '/contact', to: 'static_pages#contact', via: 'get'
   match '/signup',  to: 'users#new', via: 'get'
   match '/signin',  to: 'sessions#new', via: 'get' 
-  match '/signout', to: 'sessions#destroy', via: :delete
-  match '/favorite_movies',    to: 'movies#favorite', via: 'get' 
+  match '/signout', to: 'sessions#destroy', via: :delete 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

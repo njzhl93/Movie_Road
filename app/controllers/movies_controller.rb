@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :edit, :update, :destroy, :favorite]
+  before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
   def index
 
@@ -60,9 +60,6 @@ class MoviesController < ApplicationController
       format.json { head :no_content }
     end
     
-  def favorite
-    @movies = current_user.favorite_movies
-  end
 
   end
 

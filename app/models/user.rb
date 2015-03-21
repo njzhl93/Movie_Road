@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_many :favorites
-  has_many :favorite_movies, through: :favorites, source: :favorited, source_type: 'Movie'
+
   has_many :microposts, dependent: :destroy
   has_many :ratings
   has_many :messages
@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
   end
   def feed
     Comment.from_users_followed_by(self)
+  end
+
+  def favorite
+    Favorite.show_favorites(self)
   end
 
   def following?(other_user)
