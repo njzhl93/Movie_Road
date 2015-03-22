@@ -15,4 +15,9 @@ class Movie < ActiveRecord::Base
 def average_rating
   ratings.sum(:score) / (ratings.size.nonzero? || 1)
 end
+
+  def self.show_favorites(user)
+    favorites = "SELECT favorited_id FROM favorites WHERE user_id = :user_id"
+    where("id in (#{favorites})", user_id: user.id)
+  end
 end

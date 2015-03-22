@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   has_many :favorites
-
   has_many :microposts, dependent: :destroy
   has_many :ratings
   has_many :messages
@@ -39,7 +38,7 @@ class User < ActiveRecord::Base
   end
 
   def favorite
-    Favorite.show_favorites(self)
+    Movie.show_favorites(self)
   end
 
   def following?(other_user)

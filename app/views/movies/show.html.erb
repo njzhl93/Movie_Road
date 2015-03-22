@@ -56,7 +56,7 @@
   <%= @movie.content %>
 </p>
 
-<%- unless current_user.favorites.exists?(id: @movie.id) -%>
+<%- unless current_user.favorites.exists?(favorited_id: @movie.id) -%>
 <%= link_to 'Add to favorites', favorites_path(movie_id: @movie), method: :post %>
 <%- else -%>
 <%= link_to 'Remove from favorites', favorite_path(@movie), method: :delete %>
