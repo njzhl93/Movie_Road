@@ -23,7 +23,21 @@
 
 <% if signed_in? %>
 <p>Your rating</p>
-<div id="user_star"></div>
+<div id="user_star">
+  <script>
+  $('#user_star').raty({
+    score: <%= @rating.score %>,
+    path: '/assets',
+    click: function(score, evt) {
+      $.ajax({
+        url: '/ratings/' + <%= @rating.id %>,
+        type: 'PATCH',
+        data: { score: score }
+      });
+    },
+  });
+  </script>
+</div>
 <% end %>
 
 <p>
@@ -55,11 +69,12 @@
   <strong>Content:</strong>
   <%= @movie.content %>
 </p>
-
+<% if signed_in? %>
 <%- unless current_user.favorites.exists?(favorited_id: @movie.id) -%>
 <%= link_to 'Add to favorites', favorites_path(movie_id: @movie), method: :post %>
 <%- else -%>
 <%= link_to 'Remove from favorites', favorite_path(@movie), method: :delete %>
+<%- end -%>
 <%- end -%>
 
 <% if signed_in? %>
@@ -88,15 +103,5 @@
     path: '/assets'
   });
 
-  $('#user_star').raty({
-    score: <%= @rating.score %>,
-    path: '/assets',
-    click: function(score, evt) {
-      $.ajax({
-        url: '/ratings/' + <%= @rating.id %>,
-        type: 'PATCH',
-        data: { score: score }
-      });
-    },
-  });
+
 </script>
