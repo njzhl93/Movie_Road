@@ -1,5 +1,6 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  before_action :admin_user, only: :destroy
 
   def index
 
@@ -74,4 +75,8 @@ class MoviesController < ApplicationController
     def movie_params
       params.require(:movie).permit(:imdb, :name, :director, :actors, :genre, :duration, :date, :content, :image)
     end
+
+   def admin_user
+    redirect_to(root_path) unless current_user.admin?
+   end
 end

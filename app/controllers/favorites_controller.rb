@@ -13,8 +13,11 @@ class FavoritesController < ApplicationController
 
 
  def index
-    @favorite_movies = current_user.favorite
+    @user = params[:user]  
+    puts @user
+    @favorite_movies = @user.favorite
  end
+
   
   def destroy
     Favorite.where(favorited_id: @movie.id, user_id: current_user.id).first.destroy

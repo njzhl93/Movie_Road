@@ -16,9 +16,9 @@ Rails.application.routes.draw do
     end 
   end
 
-  resources :favorites, only: [:create, :index, :destroy]
+  resources :favorites, only: [:create, :index, :show, :destroy]
 
-  resources :messages, only: [:new, :create, :index, :show, :destroy] do
+  resources :messages, only: [:new, :create, :index, :destroy] do
     get 'reply', on: :member
     get 'sent', on: :collection
   end
