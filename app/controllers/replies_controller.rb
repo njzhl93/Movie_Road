@@ -12,11 +12,9 @@ class RepliesController < ApplicationController
 
 
     def destroy
-        @comment = Comment.find(params[:comment_id])
-        @movie = Movie.find(params[:movie_id])
         @reply = Reply.find(params[:id])
         @reply.destroy
-        redirect_to @movie
+        redirect_to :back
     end
 
     private

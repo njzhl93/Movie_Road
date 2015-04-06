@@ -1,17 +1,32 @@
 <li id="<%= feed_item.id %>">
   <%= link_to gravatar_for(feed_item.user), feed_item.user %>
   <span class="user">
-    <%= link_to feed_item.user.name, feed_item.user %>
+   <%= link_to feed_item.user.name, feed_item.user %> 
   </span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
   </span>
 </br>
   <span class="name">
-    <%= link_to feed_item.movie.name, feed_item.movie %>
+   <font size="2" color="blue">  <%= link_to feed_item.movie.name, feed_item.movie %> </font>
   </span>
 </br>
   <span class="body"><%= feed_item.body %></span>
+  </br>
+<a href="#" id='show'>Reply</a>
+         <div id="reply">
+            <%= render :partial => feed_item.replies %>
+          </br>
+
+         
+     <%= form_for [feed_item, Reply.new] do |f| %>
+           
+        <p>
+                <%= f.text_area :body, :size => "6x1" %>
+                <%= f.submit "Add reply", class: "btn btn-info" %>
+        </p>
+        <% end %>  
+        </div>
 </br>
 </br>
 </br>

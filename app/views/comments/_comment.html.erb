@@ -28,23 +28,23 @@
                 <% if current_user?(comment.user) %>
                 <%= link_to "delete", comment, method: :delete,
                                          data: { confirm: "You sure?" },
-                                         title: comment.body %>
+                                         title: comment.body, class: "btn btn-danger btn-mini" %>
       <% end %>
         </p>
 
-    <a href="#" id='show'>Reply</a>
+<a href="#" id='show'>Reply</a>
          <div id="reply">
             <%= render :partial => comment.replies %>
+          </br>
 
          
      <%= form_for [comment, Reply.new] do |f| %>
            
         <p>
-                <%= f.label :body, "New reply" %><br/>
                 <%= f.text_area :body, :size => "6x1" %>
+                <%= f.submit "Add reply", class: "btn btn-info" %>
         </p>
-        <p><%= f.submit "Add reply" %></p>
         <% end %>  
         </div>
-       
+       </br></br>
 <% end %>
