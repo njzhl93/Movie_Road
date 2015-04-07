@@ -8,42 +8,42 @@
                 
                         Posted <%= time_ago_in_words(comment.created_at) %> ago
                       </br>
-                        <font size="2" color="blue">
-                        <% if signed_in? %>
-                          <%= link_to "up", vote_comment_path(comment, type: "up"), method: "post" %>
-                          <%= link_to "down", vote_comment_path(comment, type: "down"), method: "post" %>
-                        <% end %>
-                          <%= pluralize comment.reputation_for(:votes).to_i, "vote" %>
-                          
-                        </font>
+                                      <%= comment.body %>
                 
-                <br/>
-            <strong>
-                <span class="name">
-                    <%= link_to comment.movie.name, comment.movie %>
-                </span>
-            </strong>  
-                <%= comment.body %>
-                <br/>
+                      </br>
+
+                <a href="#" id='show' class="btn btn-success btn-mini" >
+                    Reply </a>
                 <% if current_user?(comment.user) %>
                 <%= link_to "delete", comment, method: :delete,
                                          data: { confirm: "You sure?" },
                                          title: comment.body, class: "btn btn-danger btn-mini" %>
-      <% end %>
+                <% end %>
+                 <font size="2" color="blue">
+                        <% if signed_in? %>
+                          <%= link_to image_tag("up.png", size: "25"), vote_comment_path(comment, type: "up"), method: "post" %>
+                          <%= link_to image_tag("down.png", size: "25"), vote_comment_path(comment, type: "down"), method: "post" %>
+                        <% end %>
+                          <%= pluralize comment.reputation_for(:votes).to_i, "vote" %>
+                          
+                        </font>
+
         </p>
 
-<a href="#" id='show'>Reply</a>
+
+
          <div id="reply">
             <%= render :partial => comment.replies %>
           </br>
 
-         
+  <% if signed_in? %>       
      <%= form_for [comment, Reply.new] do |f| %>
            
         <p>
                 <%= f.text_area :body, :size => "6x1" %>
                 <%= f.submit "Add reply", class: "btn btn-info" %>
         </p>
+  <% end %>
         <% end %>  
         </div>
        </br></br>

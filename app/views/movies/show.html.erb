@@ -2,20 +2,18 @@
   <div class="panel-body">
     <div class="row">
       <div class="span3">
-        </br>
-        <%= image_tag @movie.image.url %>
+        <%= image_tag @movie.image.url, size: "210" %>
       </div>
       <div class="span6">
         <div class="table-responsive">
           <table class="table">
             <tbody>
               <tr>
-                <td><strong>Name:</strong></td>
-                <td><%= @movie.name %></td>
-              </tr>
-              <tr>
-                <td><strong>Imdb:</strong></td>
-                <td><%= @movie.imdb %></td>
+                
+
+                <th  colspan="2"><font size="5"><%= @movie.name %></font>
+                
+              </td>
               </tr>
                             
               <tr>
@@ -30,17 +28,18 @@
                 <td><strong>Genre:</strong></td>
                 <td><%= @movie.genre %></td>
               </tr>
-              <tr>
-                <td><strong>Duration:</strong></td>
-                <td><%= @movie.duration %></td>
-              </tr>
-              <tr>
+                <tr>
                 <td><strong>Date:</strong></td>
                 <td><%= @movie.date %></td>
               </tr>
               <tr>
-                <td><strong>Actors:</strong></td>
-                <td><%= @movie.actors %></td>
+                <td><strong>Duration:</strong></td>
+                <td><%= @movie.duration %></td>
+              </tr>
+
+              <tr>
+                <td><strong>Imdb:</strong></td>
+                <td><%= @movie.imdb %></td>
               </tr>
 
             </tbody>
@@ -84,15 +83,16 @@
           <%- end -%>
         </div>
       </div>
-       <strong>Content:</strong>
-       <%= @movie.content %>
-      <% if signed_in? %>
+    </br>
+       <font size="4"><strong>Content:</strong></font>
+       <font size="4"><%= @movie.content %></font>
+      </br></br></br>
       <h2>Comments</h2>
        <div id="comments">
                <%= render :partial => @movie.comments %>
        </div>
 
-
+<% if signed_in? %>
       <%= form_for [@movie, Comment.new] do |f| %>
                  
               <p>
@@ -102,7 +102,9 @@
               <p><%= f.submit "Add comment", class: "btn btn-primary btn-large" %></p>
       <% end %>
       <% end %>
+      <% if signed_in? %>
       <%= link_to 'Edit', edit_movie_path(@movie) %> |
+      <% end %>
       <%= link_to 'Back', movies_path %>
     </div>
   </div>

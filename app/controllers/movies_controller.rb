@@ -4,6 +4,8 @@ class MoviesController < ApplicationController
 
   def index
 
+    @movies = Movie.paginate(page: params[:page])
+
     if params[:search]
       @movies = Movie.search(params[:search]).order(:name)
     else
@@ -20,6 +22,7 @@ class MoviesController < ApplicationController
   end
   end
   end
+
 
   def new
     @movie = Movie.new

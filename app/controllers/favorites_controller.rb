@@ -13,9 +13,9 @@ class FavoritesController < ApplicationController
 
 
  def index
-    @user = params[:user]  
-    puts @user
-    @favorite_movies = @user.favorite
+    user_id = params[:user]  
+    user = User.find_by(id: user_id)
+    @favorite_movies = user.favorite
  end
 
   
