@@ -7,9 +7,9 @@ class MoviesController < ApplicationController
     @movies = Movie.paginate(page: params[:page])
 
     if params[:search]
-      @movies = Movie.search(params[:search]).order(:name)
+      @movies = Movie.search(params[:search]).order(:name).paginate(page: params[:page])
     else
-      @movies = Movie.order(:name)
+      @movies = Movie.order(:name).paginate(page: params[:page])
     end    
 
   end
@@ -20,6 +20,8 @@ class MoviesController < ApplicationController
   unless @rating
     @rating = Rating.create(movie_id: @movie.id, user_id: current_user.id, score: 0)
   end
+  @movie = Movie.find(params[:id])
+  @comments = @movie.comments.paginate(:per_page => 10,page: params[:page])
   end
   end
 

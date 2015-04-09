@@ -34,7 +34,7 @@
               </tr>
               <tr>
                 <td><strong>Duration:</strong></td>
-                <td><%= @movie.duration %></td>
+                <td><%= @movie.duration %> min</td>
               </tr>
 
               <tr>
@@ -91,7 +91,7 @@
        <div id="comments">
                <%= render :partial => @movie.comments %>
        </div>
-
+           <%= will_paginate @comments%>
 <% if signed_in? %>
       <%= form_for [@movie, Comment.new] do |f| %>
                  

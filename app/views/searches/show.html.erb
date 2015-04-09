@@ -24,7 +24,7 @@
         <tr><td>Genre: <%= movie.genre %></td></tr>
         <tr><td>Date: <%= movie.date %></td></tr>
         <% if signed_in? %>
-        <% if current_user.admin? && !current_user?(user) %>
+        <% if current_user.admin?%>
         <tr><td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td></tr>
         </br>
         <% end %>

@@ -6,9 +6,6 @@ namespace :db do
             password: "930814",
             password_confirmation: "930814",
             admin: true)
-    make_users
-    make_microposts
-    make_relationships
   end 
 end
 def make_users

@@ -12,9 +12,10 @@
                 
                       </br>
 
-                <a href="#" id='show' class="btn btn-success btn-mini" >
-                    Reply </a>
-                <% if current_user?(comment.user) %>
+                <button type="button" class="btn btn-success btn-mini" data-toggle="collapse" data-target="#<%= comment.id %>">
+                    reply
+                </button>
+                <% if current_user?(comment.user) || current_user.admin?  %>
                 <%= link_to "delete", comment, method: :delete,
                                          data: { confirm: "You sure?" },
                                          title: comment.body, class: "btn btn-danger btn-mini" %>
@@ -31,8 +32,7 @@
         </p>
 
 
-
-         <div id="reply">
+         <div id="<%= comment.id %>" class="collapse">
             <%= render :partial => comment.replies %>
           </br>
 
