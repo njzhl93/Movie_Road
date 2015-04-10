@@ -6,19 +6,21 @@
         	    </span>
         	</strong>
                 
-                        Posted <%= time_ago_in_words(comment.created_at) %> ago
+                       <font size="1" color="grey"> Posted <%= time_ago_in_words(comment.created_at) %> ago</font>
                       </br>
                                       <%= comment.body %>
                 
                       </br>
 
                 <button type="button" class="btn btn-success btn-mini" data-toggle="collapse" data-target="#<%= comment.id %>">
-                    reply
+                    reply <%= comment.replies.count %>
                 </button>
+                <% if signed_in? %>
                 <% if current_user?(comment.user) || current_user.admin?  %>
                 <%= link_to "delete", comment, method: :delete,
                                          data: { confirm: "You sure?" },
                                          title: comment.body, class: "btn btn-danger btn-mini" %>
+                <% end %>
                 <% end %>
                  <font size="2" color="blue">
                         <% if signed_in? %>

@@ -20,9 +20,10 @@ class MoviesController < ApplicationController
   unless @rating
     @rating = Rating.create(movie_id: @movie.id, user_id: current_user.id, score: 0)
   end
+  end
   @movie = Movie.find(params[:id])
   @comments = @movie.comments.paginate(:per_page => 10,page: params[:page])
-  end
+  
   end
 
 

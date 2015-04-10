@@ -15,7 +15,7 @@
   <span class="body"><%= feed_item.body %></span>
   </br>
 <button type="button" class="btn btn-success btn-mini" data-toggle="collapse" data-target="#reply_<%= feed_item.id %>">
-                    reply
+                    reply <%= feed_item.replies.count %>
                 </button>
                             <% if current_user?(feed_item.user) %>
                 <%= link_to "delete", feed_item, method: :delete,

@@ -28,6 +28,7 @@
         <tr><td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td></tr>
         </br>
         <% end %>
+        <% end %>
         <script>
           $('#<%= movie.id %>').raty({
           readOnly: true,
@@ -35,7 +36,7 @@
           path: '/assets'
            });
 </script>
-        <% end %>
+        
         </br>
     <% end %>
   </tbody>
