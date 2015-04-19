@@ -6,7 +6,10 @@
         	    </span>
         	</strong>
                 
-                       <font size="1" color="grey"> Posted <%= time_ago_in_words(comment.created_at) %> ago</font>
+                       <font size="1" color="grey"> Posted <%= time_ago_in_words(comment.created_at) %> ago</font></br>
+                        <span class="name">
+  <%= link_to comment.movie.name, comment.movie %> 
+  </span>
                       </br>
                                       <%= comment.body %>
                 
