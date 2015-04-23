@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_many :favorites
   has_many :microposts, dependent: :destroy
   has_many :ratings
-  has_many :messages
+  has_many :messages, dependent: :destroy
   has_many :comments,dependent: :destroy
   has_many :replies,dependent: :destroy
   has_many :commented_posts, :class_name => "Micropost" ,
