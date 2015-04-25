@@ -4,11 +4,18 @@ describe "StaticPages" do
 
   subject { page }
 
+  shared_examples_for "all static pages" do
+    it { should have_content(heading) }
+    it { should have_title(full_title(page_title)) }
+  end
+
   describe "Home page" do
     before { visit root_path }
 
-    it { should have_content('Welcome to Movie Road') }
-    it { should have_title(full_title('')) }
+    let(:heading) {'Welcome to Movie Road' }
+    let(:page_title) { '' }
+   
+    it_should_behave_like "all static pages"
     it { should_not have_title('| Home') }
   end
 
@@ -31,5 +38,11 @@ describe "StaticPages" do
 
     it { should have_content('Contact') }
     it { should have_title(full_title('Contact')) }
+  end
+
+  it "should have the right links on the layout" do
+    visit root_path
+    click_link "About"
+    expect(page).to have_title(full_title('About Us'))
   end
 end
