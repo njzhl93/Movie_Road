@@ -17,4 +17,3 @@
 //= require turbolinks
 //= require_tree .
 //= require jquery.raty.js
-//= require hide.js

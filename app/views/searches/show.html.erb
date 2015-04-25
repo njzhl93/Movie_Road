@@ -1,36 +1,45 @@
-<h1>Search Result</h1>
+<h1>Listing movies</h1>
 
-<table border=1>
-  <thead>
-    <tr>
-      <th>Poster</th>
-      <th>Imdb</th>
-      <th>Name</th>
-      <th>Director</th>
-      <th>Actors</th>
-      <th>Genre</th>
-      <th>Duration</th>
-      <th>Date</th>
-    </tr>
-  </thead>
+     <%= form_tag(@movie, :method => "get") do %>
+        <p> 
+         <%= text_field_tag :search, params[:search] %>
+         <%= submit_tag "Search", :name => nil, class: "btn btn-success 
+         " %>
+        <%= link_to "Advanced Search", new_search_path, class: "btn btn-info 
+         "  %>
+        </p> 
+      <% end %>
+
+<table class="table table-hover">
+
 
   <tbody>
     <% @search.movies.each do |movie| %>
-      <tr>
-        <td><%= image_tag movie.image.url %></td>
-        <td><%= movie.imdb %></td>
-        <td><%= movie.name %></td>
-        <td><%= movie.director %></td>
-        <td><%= movie.actors %></td>
-        <td><%= movie.genre %></td>
-        <td><%= movie.duration %></td>
-        <td><%= movie.date %></td>
-        <td><%= link_to 'Show', movie %></td>
+        <td rowspan="6" width="20%"><%= image_tag movie.image.url, size: "190"  %></td>
+        <th width="80%" style="background-color:#40E0D0"><%= link_to movie.name, movie %></th>
+        <tr><td>Rate: <div id='<%= movie.id %>'></div></td></tr>
+        <tr><td>Director: <%= movie.director %></td></tr>
+        <tr><td>Actors: <%= movie.actors %></td></tr>
+        <tr><td>Genre: <%= movie.genre %></td></tr>
+        <tr><td>Date: <%= movie.date %></td></tr>
         <% if signed_in? %>
-        <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-        <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user.admin? %>
+        <tr><td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td></tr>
+        </br>
         <% end %>
-      </tr>
+        <% end %>
+        <script>
+          $('#<%= movie.id %>').raty({
+          readOnly: true,
+          score: <%= movie.average_rating %>,
+          path: '/assets'
+           });
+</script>
+        
+        </br>
     <% end %>
   </tbody>
 </table>
+</br>
+
+<%= link_to 'Add New Movie', new_movie_path, class: "btn-warning btn-large" %>

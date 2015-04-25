@@ -1,22 +1,31 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  before_action :admin_user, only: :destroy
 
   def index
 
+    @movies = Movie.paginate(:per_page => 10,page: params[:page])
+
     if params[:search]
-      @movies = Movie.search(params[:search]).order(:name)
+      @movies = Movie.search(params[:search]).order(:name).paginate(:per_page => 10,page: params[:page])
     else
-      @movies = Movie.order(:name)
+      @movies = Movie.order(:name).paginate(:per_page => 10,page: params[:page])
     end    
 
   end
 
   def show
+  if current_user
     @rating = Rating.where(movie_id: @movie.id, user_id: current_user.id).first
   unless @rating
     @rating = Rating.create(movie_id: @movie.id, user_id: current_user.id, score: 0)
   end
   end
+  @movie = Movie.find(params[:id])
+  @comments = @movie.comments.paginate(:per_page => 10,page: params[:page])
+  
+  end
+
 
   def new
     @movie = Movie.new
@@ -72,4 +81,8 @@ class MoviesController < ApplicationController
     def movie_params
       params.require(:movie).permit(:imdb, :name, :director, :actors, :genre, :duration, :date, :content, :image)
     end
+
+   def admin_user
+    redirect_to(root_path) unless current_user.admin?
+   end
 end

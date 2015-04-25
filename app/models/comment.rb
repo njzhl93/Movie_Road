@@ -9,4 +9,5 @@ class Comment < ActiveRecord::Base
           where("user_id IN (#{followed_user_ids}) OR user_id = :user_id",user_id: user.id)
       end
   has_reputation :votes, source: :user, aggregated_by: :sum
+
 end

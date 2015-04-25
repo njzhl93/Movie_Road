@@ -6,6 +6,9 @@
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
+      <%= link_to 'Mailbox', messages_path(@user.id)%>
+    </br>
+      <%= link_to 'Favorite Movies', controller: "favorites",action: "index", user: @user %>
     </section>
   </aside>
   <div class="span8">
@@ -19,4 +22,3 @@
     <% end %>
   </div>
 </div>
-<%= link_to 'Mailbox', messages_path(@user.id)%>
