@@ -8,9 +8,7 @@ Feature: Home page
     When I visit the Home page
     Then I should see a "Sign up now!" link
     And  I should see a "Home" link
-    And  I should see a "Help" link
+    And  I should see a "IMDB" link
     And  I should see a "Movies" link
     And  I should see a "Sign in" link
     And  I should see a "About" link
-    And  I should see a "Contact" link
-    And  I should see a "News" link
