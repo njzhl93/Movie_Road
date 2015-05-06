@@ -1,17 +1,14 @@
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
-<<<<<<< HEAD
     make_users
  #   make_microposts
  #   make_relationships
-=======
     admin = User.create!(name: "Admin",
             email: "Admin@example.com",
             password: "930814",
             password_confirmation: "930814",
             admin: true)
->>>>>>> zhl_movie_road/master
   end 
 end
 def make_users

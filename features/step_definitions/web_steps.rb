@@ -28,6 +28,20 @@ Given(/^I has signed in$/) do
   }
 end
 
+Given(/^I has signed in as an administrator$/) do
+  User.create!(name: "Example User",
+               email: "example@railstutorial.org",
+               password: "foobar",
+               password_confirmation: "foobar",
+               admin: true)
+  steps %{
+    Given I visit the "signin" page
+    And  I fill in the "Email" field with "example@railstutorial.org"
+    And  I fill in the "Password" field with "foobar"
+    And  I click the "Sign in" button
+  }
+end
+
 
 Given(/^I sign out$/) do
   click_link("Account")
@@ -54,6 +68,10 @@ end
 Then(/^I should see a "(.*?)" link$/) do |arg1|
   expect(page).to have_link(arg1)
 #  ask('does that look right?')
+end
+
+Then(/^I should not see the link "(.*?)"$/) do |arg1|
+  expect(page).not_to have_link(arg1)
 end
 
 Then(/^I should see a "(.*?)" field$/) do |arg1|
