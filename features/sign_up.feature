@@ -6,13 +6,14 @@ Feature: Sign up
   Background:
     Given I visit the "signup" page
 
+  #@javascript
   Scenario: Successfully browse sign up page
     Then I should see a "Name" field
     Then I should see a "Email" field
     Then I should see a "Password" field
     Then I should see a "Confirm Password" field
 
-  @javascript
+  #@javascript
   Scenario Outline: Name, email and password is invalid values
     When I fill in the "Name" field with <Name>
     And  I fill in the "Email" field with <Email>
