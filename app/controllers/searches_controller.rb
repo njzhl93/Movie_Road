@@ -14,6 +14,6 @@ class SearchesController < ApplicationController
 
 	private
 	def search_params
-      params.require(:search).permit(:imdb, :name, :director, :actors)
-    end
+    params.require(:search).permit(:imdb, :name, :director, :actors)
+  end
 end

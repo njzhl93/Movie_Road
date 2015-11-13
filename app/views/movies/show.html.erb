@@ -4,110 +4,96 @@
       <div class="span3">
         <%= image_tag @movie.image.url, size: "210" %>
       </div>
-      <div class="span6">
-        <div class="table-responsive">
-          <table class="table">
-            <tbody>
+    <div class="span6">
+      <div class="table-responsive">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th colspan="2"><font size="5"><%= @movie.name %></font></th>
+            </tr>
+            <tr>
+              <td><strong>Director:</strong></td>
+              <td><%= @movie.director %></td>
+            </tr>
+            <tr>
+              <td><strong>Actors:</strong></td>
+              <td><%= @movie.actors %></td>
+            </tr>
+            <tr>
+              <td><strong>Genre:</strong></td>
+              <td><%= @movie.genre %></td>
+            </tr>
               <tr>
-                
-
-                <th  colspan="2"><font size="5"><%= @movie.name %></font>
-                
-              </td>
-              </tr>
-                            
-              <tr>
-                <td><strong>Director:</strong></td>
-                <td><%= @movie.director %></td>
-              </tr>
-              <tr>
-                <td><strong>Actors:</strong></td>
-                <td><%= @movie.actors %></td>
-              </tr>
-              <tr>
-                <td><strong>Genre:</strong></td>
-                <td><%= @movie.genre %></td>
-              </tr>
-                <tr>
-                <td><strong>Date:</strong></td>
-                <td><%= @movie.date %></td>
-              </tr>
-              <tr>
-                <td><strong>Duration:</strong></td>
-                <td><%= @movie.duration %> min</td>
-              </tr>
-
-              <tr>
-                <td><strong>Imdb:</strong></td>
-                <td><%= @movie.imdb %></td>
-              </tr>
-
-            </tbody>
-          </table>
-        </div>
-        </div>
-        <div class="span3">
-                  </br>
-                  </br>
-
-                </br>
-              <% if signed_in? %>
-                <strong>Your rating:</strong>
-                <div id="user_star">
-                    <script>
-                          $('#user_star').raty({
-                          score: <%= @rating.score %>,
-                          path: '/assets',
-                          click: function(score, evt) {
-                          $.ajax({
-                          url: '/ratings/' + <%= @rating.id %>,
-                          type: 'PATCH',
-                          data: { score: score }
-                          });
-                        },
-                      });
-                      </script>
-                    </div>
-                    <% end %>
-                    </br>
-                <strong>Averate rating:</strong>
-                <div id="star"></div>
-                  </br>
-                  </br>
-          <% if signed_in? %>
-          <%- unless current_user.favorites.exists?(favorited_id: @movie.id) -%>
-          <%= link_to 'Add to favorites', favorites_path(movie_id: @movie), method: :post, class: "btn btn-success btn-large" %>
-          <%- else -%>
-          <%= link_to 'Remove from favorites', favorite_path(@movie), method: :delete, class: "btn btn-danger btn-large" %>
-          <%- end -%>
-          <%- end -%>
-        </div>
+              <td><strong>Date:</strong></td>
+              <td><%= @movie.date %></td>
+            </tr>
+            <tr>
+              <td><strong>Duration:</strong></td>
+              <td><%= @movie.duration %> min</td>
+            </tr>
+            <tr>
+              <td><strong>Imdb:</strong></td>
+              <td><%= @movie.imdb %></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </br>
-       <font size="4"><strong>Content:</strong></font>
-       <font size="4"><%= @movie.content %></font>
+    </div>
+    <div class="span3">
       </br></br></br>
-      <h2>Comments</h2>
-       <div id="comments">
-               <%= render :partial => @movie.comments %>
-       </div>
-           <%= will_paginate @comments%>
-<% if signed_in? %>
-      <%= form_for [@movie, Comment.new] do |f| %>
-                 
-              <p>
-
-                      <%= f.text_area :body %>
-              </p>
-              <p><%= f.submit "Add comment", class: "btn btn-primary btn-large" %></p>
-      <% end %>
-      <% end %>
       <% if signed_in? %>
-      <%= link_to 'Edit', edit_movie_path(@movie) %> |
+        <strong>Your rating:</strong>
+        <div id="user_star">
+          <script>
+                $('#user_star').raty({
+                score: <%= @rating.score %>,
+                path: '/assets',
+                click: function(score, evt) {
+                $.ajax({
+                url: '/ratings/' + <%= @rating.id %>,
+                type: 'PATCH',
+                data: { score: score }
+                });
+              },
+            });
+            </script>
+        </div>
       <% end %>
-      <%= link_to 'Back', movies_path %>
+      </br>
+      <strong>Averate rating:</strong>
+      <div id="star"></div>
+      </br></br>
+      <% if signed_in? %>
+        <%- unless current_user.favorites.exists?(favorited_id: @movie.id) -%>
+        <%= link_to 'Add to favorites', favorites_path(movie_id: @movie), method: :post, class: "btn btn-success btn-large" %>
+        <%- else -%>
+        <%= link_to 'Remove from favorites', favorite_path(@movie), method: :delete, class: "btn btn-danger btn-large" %>
+        <%- end -%>
+      <%- end -%>
     </div>
   </div>
+  </br>
+  <font size="4"><strong>Content:</strong></font>
+  <font size="4"><%= @movie.content %></font>
+  </br></br></br>
+  <h2>Comments</h2>
+  <div id="comments">
+    <%= render :partial => @movie.comments %>
+  </div>
+  <%= will_paginate @comments%>
+  <% if signed_in? %>
+    <%= form_for [@movie, Comment.new] do |f| %>
+      <p>
+        <%= f.text_area :body %>
+      </p>
+      <p><%= f.submit "Add comment", class: "btn btn-primary btn-large" %></p>
+    <% end %>
+  <% end %>
+  <% if signed_in? %>
+    <%= link_to 'Edit', edit_movie_path(@movie) %> |
+  <% end %>
+  <%= link_to 'Back', movies_path %>
+</div>
 
 <script>
   $('#star').raty({
@@ -115,6 +101,4 @@
     score: <%= @movie.average_rating %>,
     path: '/assets'
   });
-
-
 </script>

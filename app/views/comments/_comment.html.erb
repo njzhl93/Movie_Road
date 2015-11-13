@@ -1,55 +1,46 @@
 <%= div_for comment do %>
+  <p>
+  	<strong>
+	    <span class="user">
+	    	  <%= link_to comment.user.name, comment.user %>
+	    </span>
+  	</strong>
+
+    <font size="1" color="grey"> Posted <%= time_ago_in_words(comment.created_at) %> ago</font>
+    </br>
+    <span class="name">
+      <%= link_to comment.movie.name, comment.movie %>
+    </span>
+    </br>
+    <%= comment.body %>
+    </br>
+    <button type="button" class="btn btn-success btn-mini" data-toggle="collapse" data-target="#<%= comment.id %>">
+        reply <%= comment.replies.count %>
+    </button>
+    <% if signed_in? %>
+        <% if current_user?(comment.user) || current_user.admin?  %>
+            <%= link_to "delete", comment, method: :delete, data: { confirm: "You sure?" }, title: comment.body, class: "btn btn-danger btn-mini" %>
+        <% end %>
+    <% end %>
+    <font size="2" color="blue">
+      <% if signed_in? %>
+        <%= link_to image_tag("up.png", size: "25"), vote_comment_path(comment, type: "up"), method: "post" %>
+        <%= link_to image_tag("down.png", size: "25"), vote_comment_path(comment, type: "down"), method: "post" %>
+      <% end %>
+      <%= pluralize comment.reputation_for(:votes).to_i, "vote" %>
+    </font>
+  </p>
+  <div id="<%= comment.id %>" class="collapse">
+    <%= render :partial => comment.replies %>
+    </br>
+    <% if signed_in? %>
+      <%= form_for [comment, Reply.new] do |f| %>
         <p>
-        	<strong>
-        	    <span class="user">
-        	    	<%= link_to comment.user.name, comment.user %>
-        	    </span>
-        	</strong>
-                
-                       <font size="1" color="grey"> Posted <%= time_ago_in_words(comment.created_at) %> ago</font></br>
-                        <span class="name">
-  <%= link_to comment.movie.name, comment.movie %> 
-  </span>
-                      </br>
-                                      <%= comment.body %>
-                
-                      </br>
-
-                <button type="button" class="btn btn-success btn-mini" data-toggle="collapse" data-target="#<%= comment.id %>">
-                    reply <%= comment.replies.count %>
-                </button>
-                <% if signed_in? %>
-                <% if current_user?(comment.user) || current_user.admin?  %>
-                <%= link_to "delete", comment, method: :delete,
-                                         data: { confirm: "You sure?" },
-                                         title: comment.body, class: "btn btn-danger btn-mini" %>
-                <% end %>
-                <% end %>
-                 <font size="2" color="blue">
-                        <% if signed_in? %>
-                          <%= link_to image_tag("up.png", size: "25"), vote_comment_path(comment, type: "up"), method: "post" %>
-                          <%= link_to image_tag("down.png", size: "25"), vote_comment_path(comment, type: "down"), method: "post" %>
-                        <% end %>
-                          <%= pluralize comment.reputation_for(:votes).to_i, "vote" %>
-                          
-                        </font>
-
+          <%= f.text_area :body, :size => "6x1" %>
+          <%= f.submit "Add reply", class: "btn btn-info" %>
         </p>
-
-
-         <div id="<%= comment.id %>" class="collapse">
-            <%= render :partial => comment.replies %>
-          </br>
-
-  <% if signed_in? %>       
-     <%= form_for [comment, Reply.new] do |f| %>
-           
-        <p>
-                <%= f.text_area :body, :size => "6x1" %>
-                <%= f.submit "Add reply", class: "btn btn-info" %>
-        </p>
-  <% end %>
-        <% end %>  
-        </div>
-       </br></br>
+      <% end %>
+    <% end %>
+  </div>
+  </br></br>
 <% end %>

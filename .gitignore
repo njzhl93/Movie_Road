@@ -16,3 +16,14 @@ doc/
 .project
 .DS_Store
 .idea
+log/development.log
+
+log/development.log
+log
+tmp
+log/*
+tmp/cache/*
+tmp/sessions/*
+tmp/pids/*
+tmp/sockets/*
+tmp/*

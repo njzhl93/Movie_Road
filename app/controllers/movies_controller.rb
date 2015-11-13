@@ -3,27 +3,25 @@ class MoviesController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
-
     @movies = Movie.paginate(:per_page => 10,page: params[:page])
-
     if params[:search]
       @movies = Movie.search(params[:search]).order(:name).paginate(:per_page => 10,page: params[:page])
     else
       @movies = Movie.order(:name).paginate(:per_page => 10,page: params[:page])
-    end    
+    end
 
   end
 
   def show
   if current_user
     @rating = Rating.where(movie_id: @movie.id, user_id: current_user.id).first
-  unless @rating
-    @rating = Rating.create(movie_id: @movie.id, user_id: current_user.id, score: 0)
-  end
+    unless @rating
+      @rating = Rating.create(movie_id: @movie.id, user_id: current_user.id, score: 0)
+    end
   end
   @movie = Movie.find(params[:id])
   @comments = @movie.comments.paginate(:per_page => 10,page: params[:page])
-  
+
   end
 
 
@@ -67,13 +65,13 @@ class MoviesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to movies_url, notice: 'Movie was successfully destroyed.' }
       format.json { head :no_content }
-    end
-    
+  end
+
 
   end
 
   private
-  
+
     def set_movie
       @movie = Movie.find(params[:id])
     end

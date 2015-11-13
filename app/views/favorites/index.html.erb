@@ -1,35 +1,31 @@
 <h1>Favorite Movies</h1>
-
 <table class="table table-hover">
-
-
   <tbody>
     <% @favorite_movies.each do |movie| %>
-        <td rowspan="6" width="20%"><%= image_tag movie.image.url, size: "190"  %></td>
-        <th width="80%" style="background-color:#40E0D0"><%= link_to movie.name, movie %></th>
-        <tr><td>Rate: <div id='<%= movie.id %>'></div></td></tr>
-        <tr><td>Director: <%= movie.director %></td></tr>
-        <tr><td>Actors: <%= movie.actors %></td></tr>
-        <tr><td>Genre: <%= movie.genre %></td></tr>
-        <tr><td>Date: <%= movie.date %></td></tr>
-        <% if signed_in? %>
+      <td rowspan="6" width="20%"><%= image_tag movie.image.url, size: "190"  %></td>
+      <th width="80%" style="background-color:#40E0D0"><%= link_to movie.name, movie %></th>
+      <tr><td>Rate: <div id='<%= movie.id %>'></div></td></tr>
+      <tr><td>Director: <%= movie.director %></td></tr>
+      <tr><td>Actors: <%= movie.actors %></td></tr>
+      <tr><td>Genre: <%= movie.genre %></td></tr>
+      <tr><td>Date: <%= movie.date %></td></tr>
+      <% if signed_in? %>
         <% if current_user.admin? && !current_user?(user) %>
-        <tr><td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td></tr>
-        </br>
+          <tr>
+            <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          </br>
         <% end %>
-        <% end %>
-        <script>
-          $('#<%= movie.id %>').raty({
-          readOnly: true,
-          score: <%= movie.average_rating %>,
-          path: '/assets'
-           });
-</script>
-        </br>
-
+      <% end %>
+      <script>
+        $('#<%= movie.id %>').raty({
+        readOnly: true,
+        score: <%= movie.average_rating %>,
+        path: '/assets'
+         });
+      </script>
+      </br>
     <% end %>
   </tbody>
 </table>
-
-
 </br>

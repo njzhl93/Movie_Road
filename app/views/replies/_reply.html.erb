@@ -1,23 +1,18 @@
 <%= div_for reply do %>
-        <p>
-        	<strong>
-        	    <span class="user">
-        	    	<%= link_to reply.user.name, reply.user %>
-        	    </span>
-        	</strong>
-                
-                        <font size="1" color="grey"><%= time_ago_in_words(reply.created_at) %> ago</font>
-                
-                <br/>
-
-                <%= reply.body %>
-                <br/>
-                <% if signed_in? %>
-                <% if current_user?(reply.user)|| current_user.admin? %>
-                <%= link_to "delete", reply, method: :delete,
-                                         data: { confirm: "You sure?" },
-                                         title: reply.body, class: "btn btn-danger btn-mini" %>
-                                         <% end %>
+  <p>
+  	<strong>
+	    <span class="user">
+	    	<%= link_to reply.user.name, reply.user %>
+	    </span>
+  	</strong>
+      <font size="1" color="grey"><%= time_ago_in_words(reply.created_at) %> ago</font>
+      <br/>
+      <%= reply.body %>
+      <br/>
+      <% if signed_in? %>
+        <% if current_user?(reply.user)|| current_user.admin? %>
+          <%= link_to "delete", reply, method: :delete, data: { confirm: "You sure?" }, title: reply.body, class: "btn btn-danger btn-mini" %>
+        <% end %>
       <% end %>
-        </p>
+  </p>
 <% end %>
